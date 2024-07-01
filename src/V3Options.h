@@ -203,6 +203,7 @@ private:
     V3StringList m_cFlags;      // argument: user CFLAGS
     V3StringList m_ldLibs;      // argument: user LDFLAGS
     V3StringList m_makeFlags;   // argument: user MAKEFLAGS
+    V3StringSet m_compilerIncludes; // argument: user --compiler-include
     V3StringSet m_futures;      // argument: -Wfuture- list
     V3StringSet m_future0s;     // argument: -future list
     V3StringSet m_future1s;     // argument: -future1 list
@@ -260,6 +261,7 @@ private:
     bool m_pedantic = false;        // main switch: --Wpedantic
     bool m_pinsInoutEnables = false;// main switch: --pins-inout-enables
     bool m_pinsScUint = false;      // main switch: --pins-sc-uint
+    bool m_pinsScUintBool = false;  // main switch: --pins-sc-uint-bool
     bool m_pinsScBigUint = false;   // main switch: --pins-sc-biguint
     bool m_pinsUint8 = false;       // main switch: --pins-uint8
     bool m_ppComments = false;      // main switch: --pp-comments
@@ -434,6 +436,7 @@ public:
     // METHODS
     void addCppFile(const string& filename);
     void addCFlags(const string& filename);
+    void addCompilerIncludes(const string& filename);
     void addLdLibs(const string& filename);
     void addMakeFlags(const string& filename);
     void addLibraryFile(const string& filename);
@@ -514,6 +517,7 @@ public:
     bool pedantic() const { return m_pedantic; }
     bool pinsInoutEnables() const { return m_pinsInoutEnables; }
     bool pinsScUint() const { return m_pinsScUint; }
+    bool pinsScUintBool() const { return m_pinsScUintBool; }
     bool pinsScBigUint() const { return m_pinsScBigUint; }
     bool pinsUint8() const { return m_pinsUint8; }
     bool ppComments() const { return m_ppComments; }
@@ -626,6 +630,7 @@ public:
 
     const V3StringSet& cppFiles() const { return m_cppFiles; }
     const V3StringList& cFlags() const { return m_cFlags; }
+    const V3StringSet& compilerIncludes() const { return m_compilerIncludes; }
     const V3StringList& ldLibs() const { return m_ldLibs; }
     const V3StringList& makeFlags() const { return m_makeFlags; }
     const V3StringSet& libraryFiles() const { return m_libraryFiles; }

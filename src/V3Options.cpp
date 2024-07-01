@@ -361,6 +361,9 @@ void V3Options::checkParameters() {
 
 void V3Options::addCppFile(const string& filename) { m_cppFiles.insert(filename); }
 void V3Options::addCFlags(const string& filename) { m_cFlags.push_back(filename); }
+void V3Options::addCompilerIncludes(const string& filename) {
+    m_compilerIncludes.insert(filename);
+}
 void V3Options::addLdLibs(const string& filename) { m_ldLibs.push_back(filename); }
 void V3Options::addMakeFlags(const string& filename) { m_makeFlags.push_back(filename); }
 void V3Options::addFuture(const string& flag) { m_futures.insert(flag); }
@@ -1186,6 +1189,7 @@ void V3Options::parseOptsList(FileLine* fl, const string& optdir, int argc,
                         << fl->warnMore() << "... Suggest 'clang', 'gcc', or 'msvc'");
         }
     });
+    DECL_OPTION("-compiler-include", CbVal, callStrSetter(&V3Options::addCompilerIncludes));
     DECL_OPTION("-coverage", CbOnOff, [this](bool flag) { coverage(flag); });
     DECL_OPTION("-converge-limit", Set, &m_convergeLimit);
     DECL_OPTION("-coverage-line", OnOff, &m_coverageLine);
@@ -1406,6 +1410,7 @@ void V3Options::parseOptsList(FileLine* fl, const string& optdir, int argc,
         m_pinsScUint = flag;
         if (!m_pinsScBigUint) m_pinsBv = 65;
     });
+    DECL_OPTION("-pins-sc-uint-bool", CbOnOff, [this](bool flag) { m_pinsScUintBool = flag; });
     DECL_OPTION("-pins-sc-biguint", CbOnOff, [this](bool flag) {
         m_pinsScBigUint = flag;
         m_pinsBv = 513;
